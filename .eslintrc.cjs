@@ -1,21 +1,60 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    browser: true,
+    commonjs: true,
+    es2021: true,
+  },
   extends: [
-    'eslint:recommended',
+    'plugin:import/recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
+    'airbnb',
+    'react-app',
+    'prettier',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  overrides: [],
+  parserOptions: {
+    ecmaVersion: 'latest',
+  },
+  plugins: ['import', 'react'],
   rules: {
-    'react/jsx-no-target-blank': 'off',
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': [
+      1,
+      {
+        extensions: ['.js', '.jsx'],
+      },
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          'test/**', // tape, common npm pattern
+          'tests/**', // also common npm pattern
+          'spec/**', // mocha, rspec-like pattern
+          '**/__tests__/**', // jest pattern
+          '**/__mocks__/**', // jest pattern
+          'test.{js,jsx}', // repos with a single test file
+          'test-*.{js,jsx}', // repos with multiple top-level test files
+          '**/*{.,_}{test,spec}.{js,jsx}', // tests where the extension or filename suffix denotes that it is a test
+          '**/jest.config.js', // jest config
+          '**/jest.setup.js', // jest setup
+          '**/vue.config.js', // vue-cli config
+          '**/vite.config.js',
+          '**/setupTests.js',
+          '**/webpack.config.js', // webpack config
+          '**/webpack.config.*.js', // webpack config
+          '**/rollup.config.js', // rollup config
+          '**/rollup.config.*.js', // rollup config
+          '**/gulpfile.js', // gulp config
+          '**/gulpfile.*.js', // gulp config
+          '**/Gruntfile{,.js}', // grunt config
+          '**/protractor.conf.js', // protractor config
+          '**/protractor.conf.*.js', // protractor config
+          '**/karma.conf.js', // karma config
+          '**/.eslintrc.js', // eslint config
+        ],
+      },
     ],
   },
-}
+};
